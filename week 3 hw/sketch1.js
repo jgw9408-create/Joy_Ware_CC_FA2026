@@ -13,7 +13,7 @@ function setup(){
 
 function draw(){
 
-    background(0)
+    background(20,20,)
     noFill()
     strokeWeight(2)
     stroke(255)
@@ -22,41 +22,44 @@ function draw(){
     translate(width/2-mouseX,0)
     push()
 
-    translate(width/2+200,height/2)
+    translate(width/2+170,height/2)
+    rotate(-r)
+    rect(0,0, 75)
+
+    line(0,0,0,150)
+    translate(0,150)
+    rotate(r)
+    rect(0,0, 75)
+
+    line(0,0,0,150)
+    translate(0,150)
     rotate(r)
     rect(0,0, 50)
 
-    line(0,0,0,200)
-    translate(0,200)
+    line(0,0,0,150)
+    translate(0,150)
     rotate(r)
-    rect(0,0, 50)
+    rect(0,0, 75)
 
-    line(0,0,0,200)
-    translate(0,200)
     rotate(r)
-    rect(0,0, 50)
+    rect(0,0, 75)
 
-    line(0,0,0,200)
-    translate(0,200)
+    line(0,0,0,150)
+    translate(0,150)
     rotate(r)
-    rect(0,0, 50)
+    rect(0,0, 75)
 
-    line(0,0,0,200)
-    translate(0,200)
-    rotate(r)
-    rect(0,0, 50)
-
-    line(0,0,0,200)
-    translate(0,200)
-    rotate(r)
-    rect(0,0, 50)
+    line(0,0,0,150)
+    translate(0,150)
+    rotate(r *0.5)
+    rect(0,0, 75)
 
     pop()
 
     push()
 
     translate(width/2-200,height/2)
-    rotate(-r)
+    rotate(-r*0.25)
     rect(0,0, 50)
 
     line(0,0,0,200)
@@ -108,5 +111,5 @@ function draw(){
 
 
 
-    r++
+    r+=0.5
 }

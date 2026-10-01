@@ -12,9 +12,9 @@ function draw() {
   // BREATHING
 
 
-  let breath = sin(frameCount * 0.01);
+  let breath = sin(frameCount * 0.03);
 
-  // this actually ontrols how big the square gets//
+  // this actually controls how big the square gets//
   let size = map(breath, -1, 1, 100, 500);
 
 

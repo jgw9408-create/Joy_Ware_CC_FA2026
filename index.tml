@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<htmllang="en">
+<head>
+<metacharset="UTF-8">
+<title>Creative Coding</title>
+</head>
+<body>
+<h1>Creative Coding</h1>
+<h2>Weeks</h2>
+<ahref="week01/">Week 1</a>
+<br><ahref="week02/">Week 2</a>
+</body>
+\</html>

@@ -15,8 +15,8 @@ function draw(){
 
     background(20,20,)
     noFill()
-    strokeWeight(2)
-    stroke(255)
+    strokeWeight(1)
+    stroke(44)
 
 
     translate(width/2-mouseX,0)

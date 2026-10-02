@@ -35,7 +35,7 @@ function draw() {
 }
 
 
-function drawButtonWave(txt, baseHeight, currentOffset) {
+function drawButtonWave(txt, baseHeight, currentOffset) 
 
     let letterCount = txt.length;
 

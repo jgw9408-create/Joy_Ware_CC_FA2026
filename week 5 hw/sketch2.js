@@ -1,96 +1,253 @@
+let radius = 35;
+let offset = 0;
+let yLoc, xLoc;
+
+let t = 0;
+
+// Hatch settings
+let HATCH_INTERVAL = 5;
+
 let bDoExportSvg = false;
-let exportCount = 0;
 
 p5.disableFriendlyErrors = true;
 
-function setup() {
-    createCanvas(6 * 96, 4 * 96);
-    ellipseMode(CENTER);
 
-    setSvgCoordinatePrecision(4);
-    setSvgIndent(SVG_INDENT_SPACES, 2);
-    setSvgDefaultStrokeColor('black');
-    setSvgDefaultStrokeWeight(1);
+function setup() {
+
+    createCanvas(100, 100);
+
+    xLoc = width / 2;
+    yLoc = height / 2;
+
+    ellipseMode(CENTER);
 }
 
-//happy halloween ass pumpkin
+
 function draw() {
 
     if (bDoExportSvg) {
-        beginRecordSvg(this, "coraline-pumpkin.svg");
+        beginRecordSvg(this, "disco-ball.svg");
     }
 
-    background(245);
+
+    // ======================================
+    // BACKGROUND
+    // ======================================
+
+    background(15, 12, 25);
+
+
+    // Background sparkles
+
+    let n = noise(t) * 255;
+
+    noStroke();
+    fill(n);
+
+    for (let i = 0; i < 8; i++) {
+
+        circle(
+            random(width),
+            random(height),
+            1
+        );
+    }
+
+
+    // ======================================
+    // THE ACTUAL DISCO BALL
+    // ======================================
 
     push();
-    translate(width / 2, height / 2 + 20);
 
-    // Pumpkin
-    fill(45);
-    stroke(0);
-    strokeWeight(2);
+    translate(xLoc, yLoc);
 
-    ellipse(-55, 0, 75, 110);
-    ellipse(-28, 0, 85, 130);
-    ellipse(5, 0, 90, 140);
-    ellipse(38, 0, 85, 130);
-    ellipse(65, 0, 70, 105);
 
-    // Stem
-    fill(30);
-    ellipse(5, -72, 20, 35);
+    // ======================================
+    // HATCH LINES INSIDE DISCO BALL
+    // ======================================
 
-    // Button eyes
-    fill(245);
-    ellipse(-30, -20, 25, 32);
-    ellipse(30, -20, 25, 32);
+    push();
 
-    fill(0);
-    ellipse(-34, -25, 4, 5);
-    ellipse(-26, -15, 4, 5);
-    ellipse(26, -25, 4, 5);
-    ellipse(34, -15, 4, 5);
+    stroke(50);
+    strokeWeight(0.4);
 
-    // Mouth
-    noFill();
-    stroke(0);
-    strokeWeight(4);
-    ellipse(0, 25, 65, 30);
+    for (
+        let y = -radius;
+        y <= radius;
+        y += HATCH_INTERVAL
+    ) {
 
-    // Teeth
-    fill(245);
-    strokeWeight(1);
-    ellipse(-22, 20, 8, 13);
-    ellipse(-7, 27, 8, 13);
-    ellipse(8, 27, 8, 13);
-    ellipse(23, 20, 8, 13);
+        // Calculate how wide the circle is
+        // at this particular height
 
-    // Hatch marks
-stroke(0);
-strokeWeight(1);
+        let xWidth = sqrt(
+            radius * radius - y * y
+        );
 
-for (let x = -65; x <= 65; x += 10) {
-    for (let y = -45; y <= 45; y += 12) {
-        push();
-        translate(x, y);
-        rotate(radians(-15 + x * 0.15));
-        line(-2, 0, 2, 0);
-        pop();
+        // Draw the hatch line only
+        // inside the disco ball
+
+        line(
+            -xWidth,
+            y,
+            xWidth,
+            y
+        );
     }
-}
+
+    pop();
+
+
+    // ======================================
+    // HANGING STRING
+    // ======================================
+
+    stroke(80);
+    strokeWeight(1);
+
+    line(
+        0,
+        -yLoc,
+        0,
+        -radius
+    );
+
+
+    // ======================================
+    // MIRROR TILES
+    // ======================================
+
+    for (
+        let lat = -PI / 2;
+        lat <= PI / 2;
+        lat += PI / 10
+    ) {
+
+        let ringY = sin(lat) * radius;
+        let ringRadius = cos(lat) * radius;
+
+
+        for (
+            let lon = 0;
+            lon < TWO_PI;
+            lon += PI / 10
+        ) {
+
+            let angle = lon + offset;
+
+            let x = cos(angle) * ringRadius;
+            let z = sin(angle) * ringRadius;
+
+
+            // Only show the front half
+
+            if (z > 0) {
+
+                push();
+
+                translate(x, ringY);
+
+
+                // ======================================
+                // BRIGHTNESS OF EACH MIRROR
+                // ======================================
+
+                let brightness =
+                    noise(t + angle) * 255;
+
+
+                fill(
+                    brightness,
+                    brightness,
+                    brightness
+                );
+
+                stroke(40);
+                strokeWeight(0.5);
+
+
+                // ======================================
+                // ELLIPSE MIRROR TILE
+                // ======================================
+
+                let tileWidth = map(
+                    z,
+                    0,
+                    radius,
+                    2,
+                    7
+                );
+
+
+                ellipse(
+                    0,
+                    0,
+                    tileWidth,
+                    4
+                );
+
+
+                pop();
+            }
+        }
+    }
+
+
+    // ======================================
+    // LIGHT RAYS
+    // ======================================
+
+    for (let r = 0; r < 6; r++) {
+
+        let rayAngle =
+            offset * 2 +
+            r * TWO_PI / 6;
+
+        let rx = cos(rayAngle) * 35;
+        let ry = sin(rayAngle) * 35;
+
+
+        stroke(180);
+        strokeWeight(0.7);
+
+        line(
+            0,
+            0,
+            rx,
+            ry
+        );
+    }
 
 
     pop();
 
+
+    // Animation//
+
+    offset += 0.03;
+
+    t += 0.01;
+
+
+    // ======================================
+    // SVG EXPORT
+    // ======================================
+
     if (bDoExportSvg) {
+
         endRecordSvg();
+
         bDoExportSvg = false;
-        exportCount++;
     }
+
 }
 
+
 function keyPressed() {
+
     if (key == 's') {
+
         bDoExportSvg = true;
     }
 }

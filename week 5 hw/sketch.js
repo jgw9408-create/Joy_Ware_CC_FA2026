@@ -1,11 +1,20 @@
+
 let t = 0;
 let catAlpha = 255;
+
+let bDoExportSvg = false;
+
+p5.disableFriendlyErrors = true;
 
 function setup() {
     createCanvas(600, 600);
 }
 
 function draw() {
+
+    if (bDoExportSvg) {
+        beginRecordSvg(this, "wybiescat.svg");
+    }
 
     background(15, 12, 25);
 
@@ -21,7 +30,6 @@ function draw() {
     strokeWeight(1.5);
     noFill();
 
-
     // cat body//
 
     for (let y = 220; y < 500; y += 7) {
@@ -29,8 +37,7 @@ function draw() {
         let left = 300;
         let right = 300;
 
-
-        // Head 
+        // Head
         if (y >= 220 && y < 330) {
 
             let w = 85 * sin(
@@ -40,7 +47,6 @@ function draw() {
             left = 300 - w;
             right = 300 + w;
         }
-
 
         // Body
         else {
@@ -52,7 +58,6 @@ function draw() {
             left = 300 - w;
             right = 300 + w;
         }
-
 
         // Sine wave
         beginShape();
@@ -71,30 +76,29 @@ function draw() {
 
     // left ear of Pipo cat//
 
-   
+    for (let y = 160; y < 250; y += 7) {
 
-for (let y = 160; y < 250; y += 7) {
+        let amount = map(y, 160, 250, 0, 1);
 
-    let amount = map(y, 160, 250, 0, 1);
+        let left = 235 - amount * 35;
+        let right = 235 + amount * 35;
 
-    let left = 235 - amount * 35;
-    let right = 235 + amount * 35;
-
-    drawWave(left, right, y);
-}
+        drawWave(left, right, y);
+    }
 
 
-// right ear of the Pipo the cat 
+    // right ear of the Pipo the cat
 
-for (let y = 160; y < 250; y += 7) {
+    for (let y = 160; y < 250; y += 7) {
 
-    let amount = map(y, 160, 250, 0, 1);
+        let amount = map(y, 160, 250, 0, 1);
 
-    let left = 365 - amount * 35;
-    let right = 365 + amount * 35;
+        let left = 365 - amount * 35;
+        let right = 365 + amount * 35;
 
-    drawWave(left, right, y);
-}
+        drawWave(left, right, y);
+    }
+
 
     // wybey's cat tail
 
@@ -117,6 +121,13 @@ for (let y = 160; y < 250; y += 7) {
 
     // Animate waves
     t += 0.04;
+
+
+    // Finish SVG export AFTER everything has been drawn
+    if (bDoExportSvg) {
+        endRecordSvg();
+        bDoExportSvg = false;
+    }
 }
 
 
@@ -135,4 +146,12 @@ function drawWave(left, right, y) {
     }
 
     endShape();
+}
+
+
+function keyPressed() {
+
+    if (key == 's') {
+        bDoExportSvg = true;
+    }
 }

@@ -30,9 +30,7 @@ function draw() {
     }
 
 
-    // ======================================
-    // BACKGROUND
-    // ======================================
+    // Background 
 
     background(15, 12, 25);
 
@@ -54,18 +52,14 @@ function draw() {
     }
 
 
-    // ======================================
-    // THE ACTUAL DISCO BALL
-    // ======================================
+    // The Actual Disco Ball//
 
     push();
 
     translate(xLoc, yLoc);
 
 
-    // ======================================
-    // HATCH LINES INSIDE DISCO BALL
-    // ======================================
+    // Hatch Lines inside the disco ball
 
     push();
 
@@ -99,9 +93,7 @@ function draw() {
     pop();
 
 
-    // ======================================
-    // HANGING STRING
-    // ======================================
+    // Hanging String 
 
     stroke(80);
     strokeWeight(1);
@@ -114,9 +106,7 @@ function draw() {
     );
 
 
-    // ======================================
-    // MIRROR TILES
-    // ======================================
+    // Mirror Tiles 
 
     for (
         let lat = -PI / 2;
@@ -149,9 +139,9 @@ function draw() {
                 translate(x, ringY);
 
 
-                // ======================================
-                // BRIGHTNESS OF EACH MIRROR
-                // ======================================
+            
+                // Brightness of each mirrow 
+        
 
                 let brightness =
                     noise(t + angle) * 255;
@@ -167,9 +157,7 @@ function draw() {
                 strokeWeight(0.5);
 
 
-                // ======================================
-                // ELLIPSE MIRROR TILE
-                // ======================================
+                // Ellipse Mirror Tile 
 
                 let tileWidth = map(
                     z,
@@ -194,9 +182,7 @@ function draw() {
     }
 
 
-    // ======================================
-    // LIGHT RAYS
-    // ======================================
+    // Light rays emittting 
 
     for (let r = 0; r < 6; r++) {
 

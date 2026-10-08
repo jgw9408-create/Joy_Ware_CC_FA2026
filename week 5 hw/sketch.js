@@ -1,4 +1,3 @@
-
 let t = 0;
 let catAlpha = 255;
 
@@ -30,7 +29,7 @@ function draw() {
     strokeWeight(1.5);
     noFill();
 
-    // cat body//
+    // cat body
 
     for (let y = 220; y < 500; y += 7) {
 
@@ -59,13 +58,11 @@ function draw() {
             right = 300 + w;
         }
 
-        // Sine wave
         beginShape();
 
         for (let x = left; x <= right; x += 2) {
 
-            let wave =
-                sin(x * 0.08 + t) * 4;
+            let wave = sin(x * 0.08 + t) * 4;
 
             vertex(x, y + wave);
         }
@@ -73,8 +70,7 @@ function draw() {
         endShape();
     }
 
-
-    // left ear of Pipo cat//
+    // left ear of Pipo cat
 
     for (let y = 160; y < 250; y += 7) {
 
@@ -86,8 +82,7 @@ function draw() {
         drawWave(left, right, y);
     }
 
-
-    // right ear of the Pipo the cat
+    // right ear of Pipo cat
 
     for (let y = 160; y < 250; y += 7) {
 
@@ -99,15 +94,13 @@ function draw() {
         drawWave(left, right, y);
     }
 
-
     // wybey's cat tail
 
     for (let i = 0; i < 35; i++) {
 
         let y = 400 + i * 4;
 
-        let centerX =
-            375 + sin(i * 0.15) * 80;
+        let centerX = 375 + sin(i * 0.15) * 80;
 
         let width = 22;
 
@@ -118,12 +111,10 @@ function draw() {
         );
     }
 
-
     // Animate waves
     t += 0.04;
 
-
-    // Finish SVG export AFTER everything has been drawn
+    // Export one frame
     if (bDoExportSvg) {
         endRecordSvg();
         bDoExportSvg = false;
@@ -131,7 +122,7 @@ function draw() {
 }
 
 
-// sine wave//
+// sine wave
 
 function drawWave(left, right, y) {
 
@@ -139,8 +130,7 @@ function drawWave(left, right, y) {
 
     for (let x = left; x <= right; x += 2) {
 
-        let wave =
-            sin(x * 0.08 + t) * 4;
+        let wave = sin(x * 0.08 + t) * 4;
 
         vertex(x, y + wave);
     }

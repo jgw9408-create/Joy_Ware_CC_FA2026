@@ -1,5 +1,5 @@
 let wavesPerCanvas = 2;
-let amplitude = 6;
+let amplitude = 12;
 let offset = 0;
 let rowCount = 8;
 
@@ -29,7 +29,7 @@ function draw() {
 
     for (let row = 0; row < rowCount; row++) {
 
-        let yBase = map(row, 0, rowCount - 1, 20, 80);
+        let yBase = map(row, 0, rowCount - 1, 40, 460);
         let rowOffset = offset + row * 0.35;
 
         drawButtonWave(
@@ -48,7 +48,8 @@ function draw() {
     }
 }
 
-//Coraline-inspired Buttons that are in the background of the letters///
+
+// Coraline-inspired buttons behind the letters
 function drawButtonWave(txt, baseHeight, currentOffset) {
 
     let letterCount = txt.length;
@@ -59,8 +60,8 @@ function drawButtonWave(txt, baseHeight, currentOffset) {
             i,
             0,
             letterCount - 1,
-            5,
-            95
+            35,
+            465
         );
 
         let mappedI = map(
@@ -82,42 +83,42 @@ function drawButtonWave(txt, baseHeight, currentOffset) {
         translate(x, y);
 
 
-        // BUTTON
+        // Button Base
         fill(20);
         stroke(60, 50, 70);
         strokeWeight(0.8);
 
-        ellipse(0, 0, 11, 11);
+        ellipse(0, 0, 42, 42);
 
 
-        // INNER BUTTON
+        // Inner Button Rim
         noFill();
         stroke(40, 35, 45);
         strokeWeight(0.4);
 
-        ellipse(0, 0, 8, 8);
+        ellipse(0, 0, 30, 30);
 
 
-        // BUTTON HOLES
+        // Button Holes
         fill(10);
         noStroke();
 
-        ellipse(-1.8, -1.8, 1, 1);
-        ellipse(1.8, -1.8, 1, 1);
-        ellipse(-1.8, 1.8, 1, 1);
-        ellipse(1.8, 1.8, 1, 1);
+        ellipse(-6, -6, 4, 4);
+        ellipse(6, -6, 4, 4);
+        ellipse(-6, 6, 4, 4);
+        ellipse(6, 6, 4, 4);
 
 
-        // THREAD
+        // Thread
         stroke(70);
-        strokeWeight(0.5);
+        strokeWeight(1);
 
-        line(-1.8, -1.8, 1.8, 1.8);
-        line(-1.8, 1.8, 1.8, -1.8);
+        line(-6, -6, 6, 6);
+        line(-6, 6, 6, -6);
 
 
-        // LETTER
-        textSize(6.5);
+        // Letter
+        textSize(30);
 
         stroke(0);
         strokeWeight(1.5);

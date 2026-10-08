@@ -1,4 +1,4 @@
-let radius = 35;
+let radius = 190;
 let offset = 0;
 let yLoc, xLoc;
 
@@ -14,7 +14,7 @@ p5.disableFriendlyErrors = true;
 
 function setup() {
 
-    createCanvas(100, 100);
+    createCanvas(500, 500);
 
     xLoc = width / 2;
     yLoc = height / 2;
@@ -37,7 +37,7 @@ function draw() {
 
     // Background sparkles
 
-    let n = noise(t) * 255;
+    let n = noise(t) * 355;
 
     noStroke();
     fill(n);
@@ -72,15 +72,9 @@ function draw() {
         y += HATCH_INTERVAL
     ) {
 
-        // Calculate how wide the circle is
-        // at this particular height
-
         let xWidth = sqrt(
             radius * radius - y * y
         );
-
-        // Draw the hatch line only
-        // inside the disco ball
 
         line(
             -xWidth,
@@ -139,9 +133,7 @@ function draw() {
                 translate(x, ringY);
 
 
-            
                 // Brightness of each mirrow 
-        
 
                 let brightness =
                     noise(t + angle) * 255;
@@ -190,8 +182,8 @@ function draw() {
             offset * 2 +
             r * TWO_PI / 6;
 
-        let rx = cos(rayAngle) * 35;
-        let ry = sin(rayAngle) * 35;
+        let rx = cos(rayAngle) * radius;
+        let ry = sin(rayAngle) * radius;
 
 
         stroke(180);
@@ -209,16 +201,14 @@ function draw() {
     pop();
 
 
-    // Animation//
+    // Animate 
 
     offset += 0.03;
 
     t += 0.01;
 
 
-    // ======================================
-    // SVG EXPORT
-    // ======================================
+    // sv export
 
     if (bDoExportSvg) {
 

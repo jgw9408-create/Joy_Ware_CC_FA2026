@@ -35,8 +35,7 @@ function draw() {
 }
 
 
-function drawButtonWave(txt, baseHeight, currentOffset) 
-
+function drawButtonWave(txt, baseHeight, currentOffset) {
     let letterCount = txt.length;
 
     for (let i = 0; i < letterCount; i++) {
@@ -130,9 +129,14 @@ function drawButtonWave(txt, baseHeight, currentOffset)
         stroke(0);
         strokeWeight(1.5);
         fill(0);
-
         text(char, 0, 0);
 
         // Yellow letter
         noStroke();
         fill(255, 235, 120);
+        text(char, 0, 0);
+
+        pop();
+    }
+}
+

@@ -15,7 +15,7 @@ function draw() {
         beginRecordSvg(this, "wybiescat.svg");
     }
 
-    background(15, 12, 25);
+    background(255);
 
     // Mouse makes the cat fade
     let d = dist(mouseX, mouseY, 300, 350);
@@ -25,7 +25,7 @@ function draw() {
 
     catAlpha = lerp(catAlpha, targetAlpha, 0.08);
 
-    stroke(255, catAlpha);
+    stroke(0, catAlpha);
     strokeWeight(1.5);
     noFill();
 
@@ -111,14 +111,14 @@ function draw() {
         );
     }
 
-    // Animate waves
-    t += 0.04;
-
-    // Export one frame
+    // Export this frame
     if (bDoExportSvg) {
         endRecordSvg();
         bDoExportSvg = false;
     }
+
+    // Animate waves
+    t += 0.04;
 }
 
 
@@ -138,6 +138,8 @@ function drawWave(left, right, y) {
     endShape();
 }
 
+
+// Press S to export SVG
 
 function keyPressed() {
 

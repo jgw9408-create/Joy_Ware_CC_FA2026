@@ -1,105 +1,118 @@
-// Object Oriented Programming 
 
-// let flower = {
-//     x: 500,
-//     y:500,
-//     numPetals:6,
-//     petalWidth:40,
-//     petalLength:100,
-//     centerDiameter:50
-// }
-
-let f 
+let f
 let flowers = []
 
-function setup(){
-
+function setup() {
     createCanvas(windowWidth, windowHeight)
-    background(0)
+    background(20, 35, 29)
     angleMode(DEGREES)
 
-    for(let i = 0; i< 50; i++){
-    flowers.push(new Flower(random(width), random(height)))
-
-    }  
-
-
-    // translate(flower.x, flower.y)
-    // for(let r = 0; r < flower.numPetals; r++){
-    //     push()
-    //     rotate((360/flower.numPetals)*r)
-    //      translate(flower.petalLength/2,0)
-    //     ellipse(0,0,flower.petalLength,flower.petalWidth )
-
-    //     pop()
-    // }
-
-    // ellipse(0,0,flower.centerDiameter)
-
-   
+    for (let i = 0; i < 50; i++) {
+        flowers.push(new Flower(random(width), random(height)))
+    }
 }
 
-function draw(){
-    background(0)
-    for(let i =0; i< flowers.length; i++){
+function draw() {
+    background(20, 35, 29)
 
-        let d = map(mouseX,0,width,-5,5)
+    for (let i = 0; i < flowers.length; i++) {
+        let d = map(mouseX, 0, width, -5, 5)
         flowers[i].move(d)
         flowers[i].display()
     }
-
-
 }
 
-function mouseDragged(){
-    // f = new Flower(mouseX, mouseY)
-    // f.display()
-
+function mouseDragged() {
     flowers.push(new Flower(mouseX, mouseY))
-   
 }
 
-
-class Flower{
-    constructor(x, y){
+class Flower {
+    constructor(x, y) {
         this.x = x
         this.y = y
-        this.numPetals = random(3,16)
-        this.petalWidth = random(20,40)
+
+        this.numPetals = floor(random(6, 13))
+        this.petalWidth = random(20, 40)
         this.petalLength = random(30, 80)
-        this.centerDiameter = random(30,40)
-        this.centerCol = color(random(255),random(255),random(255))
-        this.petalCol = color(random(255),random(255),random(255))
-        this.xV = random(-5,5)
-        this.yV = random(-5,5)
+        this.centerDiameter = random(20, 35)
+
+        // How much of the rose has been painted red
+        this.paintProgress = random(0.2, 0.85)
+
+        this.petalColors = []
+        this.polkaDots = []
+
+        // Give each petal its own paint pattern
+        for (let i = 0; i < this.numPetals; i++) {
+            if (random() < this.paintProgress) {
+                this.petalColors.push(color(190, 30, 45))
+            } else {
+                this.petalColors.push(color(255, 242, 218))
+            }
+
+            this.polkaDots.push(random() < 0.4)
+        }
+
+        this.centerCol = color(238, 190, 73)
+
+        this.xV = random(-5, 5)
+        this.yV = random(-5, 5)
         this.rotations = 0
-        this.rV = random(-5,5)
+        this.rV = random(-5, 5)
     }
 
-    move(d){
+    move(d) {
+        this.x += this.xV
+        this.y += this.yV
+        this.rotations += this.rV * d
 
-        this.x+=this.xV
-        this.y+=this.yV
-        this.rotations += this.rV*d
+        // Let flowers reappear when they drift offscreen
+        if (this.x > width + 80) this.x = -80
+        if (this.x < -80) this.x = width + 80
+        if (this.y > height + 80) this.y = -80
+        if (this.y < -80) this.y = height + 80
     }
-    display(){
+
+    display() {
         push()
         translate(this.x, this.y)
         rotate(this.rotations)
-        fill(this.petalCol)
-        for(let r = 0; r < this.numPetals; r++){
+
+        for (let r = 0; r < this.numPetals; r++) {
             push()
-            
-            rotate((360/this.numPetals)*r)
-            translate(this.petalLength/2,0)
-            ellipse(0,0,this.petalLength,this.petalWidth )
+
+            rotate((360 / this.numPetals) * r)
+            translate(this.petalLength / 2, 0)
+
+            // Red and white rose petals
+            fill(this.petalColors[r])
+            stroke(100, 35, 40)
+            strokeWeight(1)
+            ellipse(0, 0, this.petalLength, this.petalWidth)
+
+            // Incomplete polka-dot painting
+            if (this.polkaDots[r]) {
+                noStroke()
+
+                if (red(this.petalColors[r]) > 220) {
+                    fill(190, 30, 45)
+                } else {
+                    fill(255, 242, 218)
+                }
+
+                circle(-this.petalLength * 0.18, 0, 5)
+                circle(0, -this.petalWidth * 0.2, 4)
+                circle(this.petalLength * 0.16, this.petalWidth * 0.18, 5)
+            }
+
             pop()
         }
-         fill(this.centerCol)
-        ellipse(0,0,this.centerDiameter)
+
+        // Golden flower center
+        noStroke()
+        fill(this.centerCol)
+        ellipse(0, 0, this.centerDiameter)
 
         pop()
-
-     }
-
+    }
 }

@@ -41,12 +41,12 @@ function draw() {
 
   if (keyIsDown(RIGHT_ARROW)) {
     dir = 1
-    xV = 7.5
+    xV = 12
   }
 
   if (keyIsDown(LEFT_ARROW)) {
     dir = -1
-    xV = -7.5
+    xV = -12
   }
 
   if (currentFrame) {
@@ -57,6 +57,11 @@ function draw() {
 
   counter++
   xLoc += xV
+
+    // Enter the flower world when the character reaches the door
+  if (dist(xLoc, height * 0.72, width - 90, height * 0.69) < 45) {
+    window.location.href = "flowers.html"
+  }
 
   if (xLoc > width - 50) {
     xLoc = width - 50
@@ -115,7 +120,7 @@ function drawWonderland() {
   drawFlower(width * 0.85, height * 0.65, 80)
   drawFlower(width * 0.55, height * 0.77, 45)
 
-  // Golden portal
+  // Golden portal-looking thing it kinda looks like a door to me, it kinda give alice in wonderland 
   noFill()
   stroke(255, 204, 91)
   strokeWeight(7)
